@@ -10,16 +10,16 @@ jobs:
       steps: 
 
       - name: Set up JDK 17
-      - uses: actions/steup-java@v2
+        uses: actions/steup-java@v2
       - with:
           java-version: '17'
           distribution: 'adopt'
 
       - name: Clonar Repo
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: SonarCloud Scan
-      - uses: sonarsource/sonarcloud-github-action@2.3.0
+        uses: sonarsource/sonarcloud-github-action@2.3.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
         
