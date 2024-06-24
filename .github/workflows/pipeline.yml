@@ -25,5 +25,7 @@ jobs:
           args: >
             -Dsonar.organization=altheus26 \
             -Dsonar.projectKey=altheus26_Laboratorio-final \
-            
+      
+      - name: SonarQube Quality Gate Check   
+        uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
         
