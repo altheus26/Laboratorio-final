@@ -52,14 +52,12 @@ jobs:
         uses: DerYeger/yarn-setup-action@v1.0.1
         with:
           node-version: 16
-      - name: Yarn audit
-        run: |
-          yarn npm audit 
-          
       - name: Instalar dependencias npm
         run: |
           npm install
-      
+      - name: Yarn audit
+        run: |
+          yarn npm audit 
       - name: Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
         env:
