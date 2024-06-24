@@ -81,7 +81,7 @@ jobs:
 #------ Docker build -------
     DockerBuild:
       needs: SCA
-      runs-on: self-hosted
+      runs-on: ubuntu-latest
       steps: 
        - name: Clonar Repo
          uses: actions/checkout@v4
