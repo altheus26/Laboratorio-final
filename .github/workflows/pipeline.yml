@@ -44,14 +44,17 @@ jobs:
       
       - name: Clonar Repo
         uses: actions/checkout@v4
-
+      - name: Instalar dependencias npm
+        run: |
+          npm install
+      
       - name: Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
         env:
           JAVA_HOME: /opt/jdk
         id: Depcheck
         with:
-          project: 'LabFinal'
+          project: '${{github.event.repository.name}}'
           path: '.'
           format: 'HTML'
           out: 'reports' # this is the default, no need to specify unless you wish to override it
