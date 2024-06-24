@@ -23,7 +23,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
           args: >
-            -Dsonar.organization=altheus26
-            -Dsonar.projectKey=altheus26_Laboratorio-final
+            -Dsonar.organization=altheus26 \
+            -Dsonar.projectKey=altheus26_Laboratorio-final \
             
         
