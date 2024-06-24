@@ -48,10 +48,10 @@ jobs:
       - name: Setup Node environment
         uses: actions/setup-node@v4.0.2
       
-      - name: Yarn Setup
-        uses: DerYeger/yarn-setup-action@v1.0.1
-        with:
-          node-version: 16
+      #- name: Yarn Setup
+      #  uses: DerYeger/yarn-setup-action@v1.0.1
+      #  with:
+      #    node-version: 16
       - name: Instalar dependencias npm
         run: |
           npm install
@@ -68,7 +68,7 @@ jobs:
           format: 'HTML'
           out: 'reports' # this is the default, no need to specify unless you wish to override it
           args: >
-            --failOnCVSS 7
+            --failOnCVSS 1
             --enableRetired
       - name: Upload Test results
         uses: actions/upload-artifact@master
