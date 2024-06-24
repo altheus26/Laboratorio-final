@@ -44,6 +44,15 @@ jobs:
       
       - name: Clonar Repo
         uses: actions/checkout@v4
+
+      - name: Setup Node environment
+        uses: actions/setup-node@v4.0.2
+      
+      - name: Yarn Setup
+        uses: DerYeger/yarn-setup-action@v1.0.1
+        with:
+          node-version: 16
+  
       - name: Instalar dependencias npm
         run: |
           npm install
