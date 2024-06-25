@@ -131,7 +131,7 @@ jobs:
          uses: actions/upload-artifact@master
          with:
            name: ZAP Scan
-           path: zap_scan
+           path: zap_scan.html
 
     deploy:
       needs: DockerScan
