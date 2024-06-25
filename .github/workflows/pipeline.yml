@@ -54,28 +54,24 @@ jobs:
           node-version: 16
       - run: yarn build
         
-      #- name: Instalar dependencias 
-      #  run: |
-      #    yarn install
-          
-      - name: Dependency Check
-        uses: dependency-check/Dependency-Check_Action@main
-        env:
-          JAVA_HOME: /opt/jdk
-        id: Depcheck
-        with:
-          project: '${{github.event.repository.name}}'
-          path: '.'
-          format: 'HTML'
-          out: 'reports' # this is the default, no need to specify unless you wish to override it
-          args: >
+      #- name: Dependency Check
+      #  uses: dependency-check/Dependency-Check_Action@main
+      #  env:
+      #    JAVA_HOME: /opt/jdk
+      #  id: Depcheck
+      #  with:
+      #    project: '${{github.event.repository.name}}'
+      #    path: '.'
+      #    format: 'HTML'
+      #    out: 'reports' # this is the default, no need to specify unless you wish to override it
+      #    args: >
             #--failOnCVSS 7
             
-      - name: Upload Test results
-        uses: actions/upload-artifact@master
-        with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
+     # - name: Upload Test results
+     #   uses: actions/upload-artifact@master
+     #   with:
+     #      name: Depcheck report
+     #      path: ${{github.workspace}}/reports
       
       
 #------ Docker build -------
@@ -113,10 +109,18 @@ jobs:
          with:
           image-ref: 'estebanignacio/laboratorio-final-esteban-espinoza:latest'
           format: 'table'
-          #exit-code: '1'
+          exit-code: '1'
           #ignore-unfixed: true
-          #vuln-type: 'os,library'
-          #severity: 'CRITICAL,HIGH'
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+          output: 'trivy_scan.html'
+       
+       - name: Upload Trivy Report
+         uses: actions/upload-artifact@master
+         with:
+           name: Trivy Report
+           path: ${{github.workspace}}/trivy_scan.html
+
        - name: Docker push
          run: |
            docker push estebanignacio/laboratorio-final-esteban-espinoza:latest
@@ -124,4 +128,7 @@ jobs:
        - name: Start Docker
          run: |
           docker run -d --name laboratorio-final-esteban-espinoza -p 8081:80 estebanignacio/laboratorio-final-esteban-espinoza:latest
-      
+       - name: ZAP Scan
+         uses: zaproxy/action-baseline@v0.12.0
+         with:
+           target: http://localhost:8081
