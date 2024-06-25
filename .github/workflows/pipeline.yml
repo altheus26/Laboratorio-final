@@ -113,13 +113,13 @@ jobs:
           #ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
-          output: 'trivy_scan.html'
+          output: 'trivy_scan.json'
        
        - name: Upload Trivy Report
          uses: actions/upload-artifact@master
          with:
            name: Trivy Report
-           path: ${{github.workspace}}/trivy_scan.html
+           path: ${{github.workspace}}/trivy_scan.json
 
        - name: Docker push
          run: |
@@ -132,3 +132,10 @@ jobs:
          uses: zaproxy/action-baseline@v0.12.0
          with:
            target: http://localhost:8081
+           allow_issue_writing: false
+       - name: Upload ZAP Report
+         uses: actions/upload-artifact@master
+         with:
+           name: ZAP Scan
+           path: ${{github.workspace}}/zap_scan
+           
