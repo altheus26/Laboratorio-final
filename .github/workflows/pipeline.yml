@@ -124,7 +124,7 @@ jobs:
          uses: zaproxy/action-baseline@v0.12.0
          with:
            docker_name: 'docker.io/estebanignacio/laboratorio-final-esteban-espinoza:latest'
-           target: http://localhost:8081
+           target: http://localhost:80
            allow_issue_writing: false
            #fail_action: true
        - name: Upload ZAP Report
