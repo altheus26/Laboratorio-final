@@ -18,18 +18,20 @@ jobs:
       - name: Clonar Repo
         uses: actions/checkout@v4
 
-    #  - name: SonarCloud Scan
-    #    uses: SonarSource/sonarcloud-github-action@v2.3.0
-    #    env:
-    #      SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
-    #      args: >
-    #        -Dsonar.organization=altheus26 \
-    #        -Dsonar.projectKey=altheus26_Laboratorio-final \
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2.3.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
+          args: >
+            -Dsonar.organization=altheus26 \
+            -Dsonar.projectKey=altheus26_Laboratorio-final \
       
     #  - name: SonarQube Quality Gate Check   
     #    uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
     #    env:
     #      SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
+
+    
 #----------------------------- SCA ------------------------
     SCA:
       needs: SAST
@@ -54,28 +56,28 @@ jobs:
           node-version: 16
       - run: yarn build
         
-      #- name: Dependency Check
-      #  uses: dependency-check/Dependency-Check_Action@main
-      #  env:
-      #    JAVA_HOME: /opt/jdk
-      #  id: Depcheck
-      #  with:
-      #    project: '${{github.event.repository.name}}'
-      #    path: '.'
-      #    format: 'HTML'
-      #    out: 'reports' # this is the default, no need to specify unless you wish to override it
-      #    args: >
+      - name: Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        env:
+          JAVA_HOME: /opt/jdk
+        id: Depcheck
+        with:
+          project: '${{github.event.repository.name}}'
+          path: '.'
+          format: 'HTML'
+          out: 'reports'
+          args: >
             #--failOnCVSS 7
             
-     # - name: Upload Test results
-     #   uses: actions/upload-artifact@master
-     #   with:
-     #      name: Depcheck report
-     #      path: ${{github.workspace}}/reports
+      - name: Upload Test results
+        uses: actions/upload-artifact@master
+        with:
+           name: Depcheck report
+           path: ${{github.workspace}}/reports
       
       
 #------ Docker build -------
-    DockerScan:
+    ImgScan_DAST:
       needs: SCA
       runs-on: ubuntu-latest
       steps: 
@@ -120,21 +122,19 @@ jobs:
        - name: Start Docker
          run: |
           docker run -d --name laboratorio-final-esteban-espinoza -p 8081:80 estebanignacio/laboratorio-final-esteban-espinoza:latest
+       
        - name: ZAP Scan
-         uses: zaproxy/action-baseline@v0.12.0
+         uses: zaproxy/action-full-scan@v0.10.0
          with:
-           #docker_name: 'docker.io/estebanignacio/laboratorio-final-esteban-espinoza:latest'
            target: http://localhost:8081
            allow_issue_writing: false
+           artifact_name: 'Zap Report'
            #fail_action: true
-       - name: Upload ZAP Report
-         uses: actions/upload-artifact@master
-         with:
-           name: ZAP Scan
-           path: zap_scan.html
+       
+       
 
     deploy:
-      needs: DockerScan
+      needs: ImgScan_DAST
       runs-on: self-hosted
       steps:
         - name: Clonar repo
