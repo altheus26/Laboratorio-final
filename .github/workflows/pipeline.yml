@@ -139,4 +139,15 @@ jobs:
          with:
            name: ZAP Scan
            path: ${{github.workspace}}/zap_scan
+
+    deploy:
+      needs: DockerScan
+      runs-on: self-hosted
+      steps:
+        - name: Clonar repo
+          uses: actions/checkout@v4
+          
+        - name: Despliegue
+          run: |
+            kubectl apply -f deploy.yaml
            
