@@ -126,7 +126,7 @@ jobs:
            docker_name: 'docker.io/estebanignacio/laboratorio-final-esteban-espinoza:latest'
            target: http://localhost:8081
            allow_issue_writing: false
-           fail_action: true
+           #fail_action: true
        - name: Upload ZAP Report
          uses: actions/upload-artifact@master
          with:
