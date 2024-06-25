@@ -76,6 +76,12 @@ jobs:
         with:
            name: Depcheck report
            path: ${{github.workspace}}/reports
+      
+      - name: Upload Proyecto
+        uses: actions/upload-artifact@master
+        with:
+           name: PROYECTO
+           path: ${{github.workspace}}
 
 
 #------ Docker build -------
@@ -83,17 +89,20 @@ jobs:
       needs: SCA
       runs-on: ubuntu-latest
       steps: 
-       - name: Clonar Repo
-         uses: actions/checkout@v4
+       - name: Download Proyecto
+         uses: actions/download-artifact@master
+         with:
+           name: PROYECTO
+           path: ${{github.workspace}} 
 
        - name: Setup Node environment
          uses: actions/setup-node@v4.0.2
       
-       - name: Yarn Setup
-         uses: DerYeger/yarn-setup-action@v1.0.1
-         with:
-           node-version: 16
-       - run: yarn build
+       #- name: Yarn Setup
+       #  uses: DerYeger/yarn-setup-action@v1.0.1
+       #  with:
+       #    node-version: 16
+       #- run: yarn build
        
        - name: Docker Login
          uses: docker/login-action@v3.1.0
