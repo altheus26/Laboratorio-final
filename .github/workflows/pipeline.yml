@@ -110,4 +110,8 @@ jobs:
        - name: Docker push
          run: |
            docker push estebanignacio/laboratorio-final-esteban-espinoza:latest
+
+       - name: Start Docker
+         run: |
+          docker run -d --name laboratorio-final-esteba-espinoza -p 8081:80 estebanignacio/laboratorio-final-esteba-espinoza:latest
       
