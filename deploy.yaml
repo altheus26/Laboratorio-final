@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laboratorio-final-esteban-espinoza
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: laboratorio-final-esteban-espinoza
+  template:
+    metadata:
+      labels:
+        app: laboratorio-final-esteban-espinoza
+    spec:
+      containers:
+      - name: laboratorio-final-esteban-espinoza
+        image: estebanignacio/laboratorio-final-esteban-espinoza:latest
+        ports:
+        - containerPort: 8081
