@@ -111,7 +111,7 @@ jobs:
          uses: actions/upload-artifact@master
          with:
            name: Trivy Report
-           path: ${{github.workspace}}/trivy_scan.json
+           path: trivy_scan.json
 
        - name: Docker push
          run: |
@@ -131,7 +131,7 @@ jobs:
          uses: actions/upload-artifact@master
          with:
            name: ZAP Scan
-           path: ${{github.workspace}}/zap_scan
+           path: zap_scan
 
     deploy:
       needs: DockerScan
