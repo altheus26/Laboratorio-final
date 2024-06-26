@@ -1,3 +1,17 @@
+FROM ubuntu:focal
+
+ENV DEBIAN_FRONTEND="noninteractive"
+RUN apt-get update && apt-get upgrade -y
+
+RUN apt-get install -y curl && \
+#GIT Vulnerability CVE https://www.cvedetails.com/cve/CVE-2018-17456/
+    apt-get install -y git && \
+#OpenSSH Vulnerability https://www.cvedetails.com/cve/CVE-2018-15473/
+    apt-get install -y openssh-server && \
+#Installation of ftp server
+    apt-get install -y proftpd
+
+
 FROM node:16-alpine as builder
 WORKDIR /app
 COPY ./package.json .
@@ -16,17 +30,6 @@ COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
-FROM ubuntu:focal
 
-ENV DEBIAN_FRONTEND="noninteractive"
-RUN apt-get update && apt-get upgrade -y
-
-RUN apt-get install -y curl && \
-#GIT Vulnerability CVE https://www.cvedetails.com/cve/CVE-2018-17456/
-    apt-get install -y git && \
-#OpenSSH Vulnerability https://www.cvedetails.com/cve/CVE-2018-15473/
-    apt-get install -y openssh-server && \
-#Installation of ftp server
-    apt-get install -y proftpd
 
 
