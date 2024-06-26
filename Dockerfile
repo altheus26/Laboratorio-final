@@ -1,4 +1,4 @@
-FROM node:16-alpine3.9 as builder
+FROM node:16-alpine as builder
 WORKDIR /app
 COPY ./package.json .
 COPY ./yarn.lock .
@@ -9,7 +9,7 @@ ENV VITE_APP_TMDB_V3_API_KEY=${TMDB_V3_API_KEY}
 ENV VITE_APP_API_ENDPOINT_URL="https://api.themoviedb.org/3"
 RUN yarn build
 # Introducir una vulnerabilidad conocida
-RUN apk add --no-cache openssl=1.0.2r-r0
+RUN apk add --no-cache openssl=1.0.2i-r0
 
 FROM nginx:stable-alpine
 WORKDIR /usr/share/nginx/html
@@ -18,5 +18,4 @@ COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
-# Introducir una vulnerabilidad conocida
-RUN apk add --no-cache openssl=1.0.2r-r0
+
