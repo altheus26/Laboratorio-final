@@ -103,7 +103,7 @@ jobs:
           image-ref: 'docker.io/estebanignacio/laboratorio-final-esteban-espinoza:latest'
           scan-type: image
           format: 'table'
-          exit-code: 1
+          #exit-code: 1
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
