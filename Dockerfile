@@ -1,4 +1,4 @@
-#FROM node:16.17.0-alpine as builder
+FROM vulnerables/web-dvwa
 FROM node:16-alpine as builder
 WORKDIR /app
 COPY ./package.json .
