@@ -16,6 +16,10 @@ COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
+FROM ubuntu:bionic-20180426
+
+ENV DEBIAN_FRONTEND="noninteractive"
+
 RUN apt-get install -y curl && \
 #GIT Vulnerability CVE https://www.cvedetails.com/cve/CVE-2018-17456/
     apt-get install -y git && \
