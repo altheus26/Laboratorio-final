@@ -18,7 +18,7 @@ COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
-FROM openjdk:9
+FROM openjdk:8
 
 
 
