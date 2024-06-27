@@ -15,21 +15,21 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      #- name: Clonar Repo
-      #  uses: actions/checkout@v4
+      - name: Clonar Repo
+        uses: actions/checkout@v4
 
-      #- name: SonarCloud Scan
-      #  uses: SonarSource/sonarcloud-github-action@v2.3.0
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2.3.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
+          args: >
+            -Dsonar.organization=altheus26 \
+            -Dsonar.projectKey=altheus26_Laboratorio-final \
+      
+      #- name: SonarQube Quality Gate Check   
+      #  uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
       #  env:
       #    SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
-      #    args: >
-      #      -Dsonar.organization=altheus26 \
-      #      -Dsonar.projectKey=altheus26_Laboratorio-final \
-      
-    #  - name: SonarQube Quality Gate Check   
-    #    uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
-    #    env:
-    #      SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
 
     
 #----------------------------- SCA ------------------------
@@ -44,36 +44,36 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       
-      #- name: Clonar Repo
-      #  uses: actions/checkout@v4
+      - name: Clonar Repo
+        uses: actions/checkout@v4
 
-      #- name: Setup Node environment
-      #  uses: actions/setup-node@v4.0.2
+      - name: Setup Node environment
+        uses: actions/setup-node@v4.0.2
       
-      #- name: Yarn Setup
-      #  uses: DerYeger/yarn-setup-action@v1.0.1
-      #  with:
-      #    node-version: 16
-      #- run: yarn build
+      - name: Yarn Setup
+        uses: DerYeger/yarn-setup-action@v1.0.1
+        with:
+          node-version: 16
+      - run: yarn build
         
-      #- name: Dependency Check
-      #  uses: dependency-check/Dependency-Check_Action@main
-      #  env:
-      #    JAVA_HOME: /opt/jdk
-      #  id: Depcheck
-      #  with:
-      #    project: '${{github.event.repository.name}}'
-      #    path: '.'
-      #    format: 'HTML'
-      #    out: 'reports'
-      #    args: >
+      - name: Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        env:
+          JAVA_HOME: /opt/jdk
+        id: Depcheck
+        with:
+          project: '${{github.event.repository.name}}'
+          path: '.'
+          format: 'HTML'
+          out: 'reports'
+          args: >
             #--failOnCVSS 7
             
-      #- name: Upload Test results
-      #  uses: actions/upload-artifact@master
-      #  with:
-      #     name: Depcheck report
-      #     path: ${{github.workspace}}/reports
+      - name: Upload Test results
+        uses: actions/upload-artifact@master
+        with:
+           name: Depcheck report
+           path: ${{github.workspace}}/reports
       
       
 #------ Docker build -------
@@ -103,7 +103,7 @@ jobs:
           image-ref: 'docker.io/estebanignacio/laboratorio-final-esteban-espinoza:latest'
           scan-type: image
           format: 'table'
-          exit-code: 1
+          exit-code: 1 #Break Pipeline
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH,MEDIUM'
@@ -129,7 +129,7 @@ jobs:
            target: http://localhost:8081
            allow_issue_writing: false
            artifact_name: 'Zap Report'
-           #fail_action: true
+           fail_action: true #Break Pipeline
        
        
 
