@@ -18,7 +18,7 @@ COPY --from=builder /app/dist .
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
-FROM openjdk:8
+#FROM openjdk:8 #Introducir vulnerabilidad para break de Trivy
 
 
 
