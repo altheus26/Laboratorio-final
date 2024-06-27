@@ -26,10 +26,10 @@ jobs:
             -Dsonar.organization=altheus26 \
             -Dsonar.projectKey=altheus26_Laboratorio-final \
       
-      #- name: SonarQube Quality Gate Check   
-      #  uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
-      #  env:
-      #    SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
+      - name: SonarQube Quality Gate Check   
+        uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_CLOUD_TOKEN }}
 
     
 #----------------------------- SCA ------------------------
