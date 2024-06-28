@@ -2,7 +2,7 @@ import { CustomGenre } from "src/types/Genre";
 
 
 export const API_ENDPOINT_URL = 'https://api.themoviedb.org/3';
-export const TMDB_V3_API_KEY = '0a5c76f39b37918e45f6a8e56b8509c5
+export const TMDB_V3_API_KEY = '0a5c76f39b37918e45f6a8e56b8509c5;
 
 export const MAIN_PATH = {
   root: "",
