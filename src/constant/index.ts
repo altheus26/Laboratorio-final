@@ -1,8 +1,8 @@
 import { CustomGenre } from "src/types/Genre";
 
 
-export const API_ENDPOINT_URL = 'https://api.themoviedb.org/3';
-export const TMDB_V3_API_KEY = 'b424063b1af986282d0556f94faaa1a3';
+export const API_ENDPOINT_URL = import.meta.env.VITE_APP_API_ENDPOINT_URL;
+export const TMDB_V3_API_KEY = import.meta.env.VITE_APP_TMDB_V3_API_KEY;
 
 export const MAIN_PATH = {
   root: "",
