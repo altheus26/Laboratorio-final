@@ -95,7 +95,7 @@ jobs:
       
        - name: Docker build
          run: |
-           docker build --build-arg TMDB_V3_API_KEY='0a5c76f39b37918e45f6a8e56b8509c5' -t estebanignacio/laboratorio-final-esteban-espinoza:latest .
+           docker build --build-arg TMDB_V3_API_KEY=0a5c76f39b37918e45f6a8e56b8509c5 -t estebanignacio/laboratorio-final-esteban-espinoza:latest .
        - name: Trivy Scan
          uses: aquasecurity/trivy-action@0.20.0
          with:
