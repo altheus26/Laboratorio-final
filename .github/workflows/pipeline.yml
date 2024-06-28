@@ -141,5 +141,6 @@ jobs:
           
         - name: Despliegue
           run: |
-            kubectl apply -f deploy.yaml
+            #kubectl apply -f deploy.yaml
+            docker run -d --name laboratorio-final-esteban-espinoza -p 8081:80 estebanignacio/laboratorio-final-esteban-espinoza:latest
            
